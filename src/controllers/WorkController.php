@@ -8,16 +8,16 @@ use Src\Services\WorkService;
 
 class WorkController extends BaseController {
 
-	/**
+    /**
      * 
      * Construct
      * 
      * @return true or false
      * 
     */
-	function __construct() {
-		$this->folder = 'homePage';
-	}
+    function __construct() {
+        $this->folder = 'homePage';
+    }
 
      /**
      * 
@@ -26,16 +26,16 @@ class WorkController extends BaseController {
      * @return view
      * 
     */
-	public function index() {
-		
-		// Get data form database
-		$workService = new WorkService();
-		$works = $workService->all();
-		$data = array('works' => $works);
-		
-		// Return view
-		$this->render('home', $data);
-	}
+    public function index() {
+        
+        // Get data form database
+        $workService = new WorkService();
+        $works = $workService->all();
+        $data = array('works' => $works);
+        
+        // Return view
+        $this->render('home', $data);
+    }
 
      /**
      * 
@@ -49,35 +49,35 @@ class WorkController extends BaseController {
      * @return view
      * 
     */
-	public function add() {
+    public function add() {
 
-		try {
-			session_start();
+        try {
+            session_start();
 
-			// Get param
-			$workName = $_REQUEST['workName'];
-			$startDate = $_REQUEST['startDate'];
-			$endDate = $_REQUEST['endDate'];
-			$status = $_REQUEST['status'];
+            // Get param
+            $workName = $_REQUEST['workName'];
+            $startDate = $_REQUEST['startDate'];
+            $endDate = $_REQUEST['endDate'];
+            $status = $_REQUEST['status'];
 
-			// Excute add work
-			$workService = new WorkService();
-			$works = $workService->add($workName, $startDate, $endDate, $status);
+            // Excute add work
+            $workService = new WorkService();
+            $works = $workService->add($workName, $startDate, $endDate, $status);
 
-			// Check result and return view
-			if($works == true) {
-				$_SESSION["success"] = "add success";
-				header('location:/');
-			} else {
-				$_SESSION["error"] = "add error";
-				header('location:/');
-			}
-			
-		} catch (Exception $e) {
-			$_SESSION["error"] = "add error";
-			header('location:/');
-		}
-	}
+            // Check result and return view
+            if($works == true) {
+                $_SESSION["success"] = "add success";
+                header('location:/');
+            } else {
+                $_SESSION["error"] = "add error";
+                header('location:/');
+            }
+            
+        } catch (Exception $e) {
+            $_SESSION["error"] = "add error";
+            header('location:/');
+        }
+    }
 
     /**
      * 
@@ -92,38 +92,38 @@ class WorkController extends BaseController {
      * @return boolean
      * 
     */
-	public function update() {
+    public function update() {
 
-		try {
-			// start session
-			session_start();
+        try {
+            // start session
+            session_start();
 
-			//Get param
-			$workName = $_REQUEST['workName'];
-			$startDate = $_REQUEST['startDate'];
-			$endDate = $_REQUEST['endDate'];
-			$status = $_REQUEST['status'];
-			$id = $_REQUEST['id'];
+            //Get param
+            $workName = $_REQUEST['workName'];
+            $startDate = $_REQUEST['startDate'];
+            $endDate = $_REQUEST['endDate'];
+            $status = $_REQUEST['status'];
+            $id = $_REQUEST['id'];
 
-			// Excute update
-			$workService = new WorkService();
-			$works = $workService->update($workName, $startDate, $endDate, $status, $id);
+            // Excute update
+            $workService = new WorkService();
+            $works = $workService->update($workName, $startDate, $endDate, $status, $id);
 
-			// Check result and return view
-			if($works == true) {
-				$_SESSION["success"] = "update success";
-				header('location:/');
-			} else {
-				$_SESSION["error"] = "update error";
-				header('location:/');
-			}
+            // Check result and return view
+            if($works == true) {
+                $_SESSION["success"] = "update success";
+                header('location:/');
+            } else {
+                $_SESSION["error"] = "update error";
+                header('location:/');
+            }
 
-		} catch (Exception $e) {
-			$_SESSION["error"] = "update error";
-			header('location:/');
-		}
-	}
-	
+        } catch (Exception $e) {
+            $_SESSION["error"] = "update error";
+            header('location:/');
+        }
+    }
+    
     /**
      * 
      * Method using delete work
@@ -133,27 +133,27 @@ class WorkController extends BaseController {
      * @return view
      * 
     */
-	public function delete($id) { 
-		try {
-			// start session
-			session_start();
+    public function delete($id) { 
+        try {
+            // start session
+            session_start();
 
-			// Excute delete
-			$workService = new WorkService();
-			$works = $workService->delete($id);
-			
-			// Check result and return view
-			if($works == true) {
-				$_SESSION["success"] = "delete success";
-				header('location:/');
-			} else {
-				$_SESSION["error"] = "delete error";
-				header('location:/');
-			}
+            // Excute delete
+            $workService = new WorkService();
+            $works = $workService->delete($id);
+            
+            // Check result and return view
+            if($works == true) {
+                $_SESSION["success"] = "delete success";
+                header('location:/');
+            } else {
+                $_SESSION["error"] = "delete error";
+                header('location:/');
+            }
 
-		} catch (Exception $e) {
-			$_SESSION["error"] = "delete error";
-			header('location:/');
-		}
-	}
+        } catch (Exception $e) {
+            $_SESSION["error"] = "delete error";
+            header('location:/');
+        }
+    }
 }
